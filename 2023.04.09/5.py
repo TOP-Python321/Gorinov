@@ -3,9 +3,9 @@ int_var = int(input())
 float_var = int(input())
 
 # ИСПРАВИТЬ: ваш способ не сработает если пользователю понадобится ввести дробную часть для числа 12.34
-miles_var = int_var + float_var/10
+miles_var = float(f'{int_var}.{float_var}')
 # ИСПРАВИТЬ: скобки вокруг выражения miles_var * 1.61 не нужны
-km_var = round((miles_var * 1.61), 1)
+km_var = round(miles_var * 1.61, 1)
 
 print(f'{miles_var} миль = {km_var} км')
 

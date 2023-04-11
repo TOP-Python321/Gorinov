@@ -1,8 +1,7 @@
 # time_min = input("Введите время в минутах: ")
 
 # ИСПРАВИТЬ: избыточность строк кода
-time_min = input()
-time_min = int(time_min)
+time_min = int(input())
 
 # ИСПОЛЬЗОВАТЬ: обычно стараются разделять оператор и его операнды пробелами
 time_hour = int(time_min / 60)
