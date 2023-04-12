@@ -4,7 +4,6 @@ num_var = int(input())
 # КОММЕНТАРИЙ: единицы (разряд числа) — ones, единица измерения — unit
 unit_var = num_var % 10
 # КОММЕНТАРИЙ: десятки (разряд числа) — tens, (примерно) десяток, дюжина — dozen
-# ИСПРАВИТЬ: скобки вокруг int() не нужны
 dozen_var = int(num_var / 10) % 10
 hundred_var = int(num_var / 100)
 
