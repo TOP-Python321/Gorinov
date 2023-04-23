@@ -12,12 +12,10 @@ if inp_2 > 0:
 
 if inp_3 > 0:
     sum_inp += inp_3
-    
+
 if sum_inp - int(sum_inp) > 0:
     print(round(sum_inp, 2))
-    
 else:
     print(round(sum_inp))
     
 # 5.5
-    

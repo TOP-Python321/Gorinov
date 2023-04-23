@@ -12,7 +12,7 @@ if inp_1.isdecimal() and inp_2.isdecimal():
         print(f'{inp_1}  не делится на {inp_2} нацело\n'
               f'неполное частное: {inp_1 / inp_2:.0f}\n'
               f'остаток: {inp_1 % inp_2:.0f}')
-              
+
 else:
     print("Введите целое число")
     
