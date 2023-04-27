@@ -10,7 +10,7 @@ elif num_n == 2:
         print(*case)
         
 else:
-    for i in range(2, num_n):
+    for i in range(3, num_n + 1):
         
         case += [case[-1] + case[-2]]
         
