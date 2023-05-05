@@ -1,14 +1,15 @@
 text = input('Введите текст: ')
 
-out_text = ''
+out_text = ''.join(i for i in text if i != ' ')
 
-for i in range(len(text)):
+# предыдущий вариант
+# for i in range(len(text)):
 
-    if text[i] == ' ':
-        out_text += ''
+    # if text[i] == ' ':
+        # out_text += ''
         
-    else:
-        out_text += text[i]
+    # else:
+        # out_text += text[i]
         
 total = len(out_text) * 30
 
