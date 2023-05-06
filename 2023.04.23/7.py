@@ -2,7 +2,7 @@ text = input('Введите текст: ')
 
 char = '--.,:;!?–—\\\'\"()*/'
 
-case = ''.join(text[i] for i in range(len(text)) if not text[i] in char)
+case = ''.join(i for i in text if  i not in char)
 
 print(f'\n{case}')
 
