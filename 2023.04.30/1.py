@@ -3,11 +3,11 @@ mail_inp = input('Введите электронную почту: ')
 for i in mail_inp:
 
     if i == '@' and '.' in mail_inp[mail_inp.index('@'):]:
-        print('yes')
+        print('Да')
         break
 
 else:
-    print('No')
+    print('Нет')
 
 # acssdcdsc@mail.ru
 
