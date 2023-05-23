@@ -2,12 +2,12 @@ inp_n = int(input('Введите натуральное число: '))
 sum_num = 0
 
 while inp_n > 0:
-    num  = input('Введите целое число: ')
+    num = input('Введите целое число: ')
     
     if num.isdecimal():
         sum_num += int(num)
-    inp_n -=1
-        
+    inp_n -= 1
+
 print(sum_num)
 
 # Введите натуральное число: 6
@@ -20,4 +20,6 @@ print(sum_num)
 # Введите целое число: 9
 
 # 25
-    
+
+
+# ИТОГ: отлично — 3/3
