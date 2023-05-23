@@ -1,21 +1,27 @@
 num = int(input('Введите натуральное число: '))
 divisors_sum = 0
+correction = 1
 
 # ИСПОЛЬЗОВАТЬ: всегда лучше называть вещи своими именами: например, делитель — делителем =)
 # КОММЕНТАРИЙ: а имена переменных i, j, k традиционно используются почти только для индексов
-for divisor in range(1, num + 1):
+
+if int(num**0.5) == num**0.5:
+    divisors_sum += int(num**0.5)
+    correction = 0
+
+for divisor in range(1, int(num**0.5) + correction):
 
     # ИСПРАВИТЬ: нет смысла проверять это условие внутри цикла, ведь если существует такой целый делитель, квадрат которого равен исходному числу, то этот делитель будет только один
-    if divisor * divisor == num:
-        divisors_sum += divisor
-        break
+    # if divisor * divisor == num:
+        # divisors_sum += divisor
+        # break
 
-    elif not num % divisor:
+    if not num % divisor:
         divisors_sum += divisor + num // divisor
     
     # ИСПРАВИТЬ: вместо лишней проверки стоило сразу определить диапазон до квадратного корня из num (num**0.5)
-    elif divisor * divisor > num:
-        break
+    # elif divisor * divisor > num:
+        # break
 
 print(divisors_sum)
 
