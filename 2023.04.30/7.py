@@ -35,15 +35,24 @@ list_out = {}
 
 for city in list_of_dicts:
     for name, v in city.items():
+        # ИСПРАВИТЬ: используйте словарные методы вместо явной проверки наличия ключа в словаре
         if name in list_out:
             list_out[name] = list_out[name] | {v}
         else:
             list_out[name] = {v}
 
 print(*{
-    f'{repr(k)}: {v}'
+    # ИСПОЛЬЗОВАТЬ: есть синтаксис f-строк для машиночитаемого строкового представления:
+    f'{k!r}: {v}'
     for k, v in list_out.items()
 }, sep=',\n')
+
+# ИСПОЛЬЗОВАТЬ: альтернативный "однострочник" — не стоит писать такой код в реальной жизни, но для тренировки очень даже хорошо =)
+# from itertools import chain
+# print(*{
+#     f'{city!r}: { {dict_.get(city) for dict_ in list_of_dicts} - {None} }'
+#     for city in set(chain(*list_of_dicts))
+# }, sep=',\n')
 
 
 # 'Махачкала': {5},
@@ -64,3 +73,5 @@ print(*{
 # 'Липецк': {1},
 # 'Санкт-Петербург': {4, 6}
 
+
+# ИТОГ: хорошо, но можно лучше — 3/4

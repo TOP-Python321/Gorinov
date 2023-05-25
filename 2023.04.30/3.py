@@ -1,19 +1,27 @@
 inp_1 = input("Введите числа через пробел: ").split()
 inp_2 = input("Введите числа через пробел: ").split()
-
-print_out = 'Нет'
 list_int_1, list_int_2 = [int(i) for i in inp_1], [int(i) for i in inp_2]
 
+# ИСПОЛЬЗОВАТЬ: альтернативный способ написания того же самого (чуть более щадящий для памяти):
+# prompt = "Введите числа через пробел: "
+# list_int_1 = [int(n) for n in input(prompt).split()]
+# list_int_2 = [int(n) for n in input(prompt).split()]
+
+print_out = 'Нет'
 if not list_int_2:
     print_out = 'Да'
 else:
     for i in range(len(list_int_1)):
-        for k in list_int_2:
-            if list_int_1[i] == k and list_int_2 == list_int_1[i:i + len(list_int_2)]:
+        # УДАЛИТЬ: никак не могу понять, зачем здесь вложенный цикл — сравнить срез первого списка со вторым списком можно прекрасно и без него
+        for num in list_int_2:
+            # ИСПРАВИТЬ: неоптимально на каждой итерации заново вычислять длину списка, про который точно известно, что его длина не изменится в ходе работы этого цикла
+            # УДАЛИТЬ: первая часть условия избыточна, поскольку она проверяется во второй части условия
+            if list_int_1[i] == num and list_int_2 == list_int_1[i:i + len(list_int_2)]:
                 print_out = 'Да'
                 break
-
 print(print_out)
+
+# ОТВЕТИТЬ: а какие ещё возможны способы решения этой задачи?
 
 
 # 11 12 45 65 89 562 23658
@@ -21,3 +29,4 @@ print(print_out)
 # Да
 
 
+# ИТОГ: нужно лучше — 1/3
