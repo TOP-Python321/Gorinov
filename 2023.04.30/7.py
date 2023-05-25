@@ -33,18 +33,18 @@ list_of_dicts = [
 
 list_out = {}
 
-for i in list_of_dicts:
-
-    for k, v in i.items():
-
-        if k in list_out:
-            list_out[k] = list_out[k] | {v}
-
+for city in list_of_dicts:
+    for name, v in city.items():
+        if name in list_out:
+            list_out[name] = list_out[name] | {v}
         else:
-            list_out[k] = {v}
+            list_out[name] = {v}
 
-print(*{f'{repr(k)}: {v}'
-      for k, v in list_out.items()}, sep=',\n')
+print(*{
+    f'{repr(k)}: {v}'
+    for k, v in list_out.items()
+}, sep=',\n')
+
 
 # 'Махачкала': {5},
 # 'Ростов-на-Дону': {5, 6},
@@ -63,3 +63,4 @@ print(*{f'{repr(k)}: {v}'
 # 'Красноярск': {9, 1},
 # 'Липецк': {1},
 # 'Санкт-Петербург': {4, 6}
+

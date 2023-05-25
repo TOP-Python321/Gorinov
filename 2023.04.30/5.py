@@ -14,15 +14,19 @@ text = input('Введите слово: ').upper()
 text = text.replace('Ё', 'Е')
 scores = 0
 
-print(sum(scores + k for i in text.upper() for k, v in scores_letters.items() if i in v))
+print(sum(
+    scores + score
+    for char in text.upper() for score, letters in scores_letters.items()
+    if char in letters
+))
 
 # тоже самое через цикл
-# for i in text.upper():
-  
-    # for k, v in scores_letters.items():
-        # if i in v:
-            # scores += k
-            
-# Введите слово: Питон
+# for char in text.upper():
+    # for score, letters in scores_letters.items():
+        # if char in letters:
+            # scores += score
 
+
+# Введите слово: Питон
 # 6
+
