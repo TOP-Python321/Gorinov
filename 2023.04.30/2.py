@@ -4,12 +4,12 @@ while True:
     if not inp:
         break
     # УДАЛИТЬ: else избыточен — в более сложных циклах у вас ещё будут уровни вложенности, поэтому стоит избегать их, если есть возможность
-    else:
-        fruit_list.append(inp)
+    
+    fruit_list.append(inp)
 
 # УДАЛИТЬ: проверка избыточна — проверьте, что возвращают эти срезы для списков длиной 0 и 1
-if len(fruit_list) >= 2:
-    fruit_list = fruit_list[:-2] + [' и '.join(fruit_list[-2:])]
+
+fruit_list = fruit_list[:-2] + [' и '.join(fruit_list[-2:])]
 
 print(' , '.join(fruit_list))
 
