@@ -5,6 +5,7 @@ list_out = []
 
 # 1 вариант. Если использовать в нескольких программах - есть вероятность совпадения имен файлов.
 # ОТВЕТИТЬ: что подразумевается под "несколькими программами"?
+# Предположил, что несколько программ записывают файлы в одну папку и каждая из них создайт свой словарь (dict_count), но на выходе нет проверки есль ли уже в папке такой файл.
 
 dict_count = {}
 for file in list_inp:
@@ -14,7 +15,8 @@ for file in list_inp:
         list_out.append(file)
     else:
         # ИСПРАВИТЬ: метод index() вызывается лишний раз — оптимизируйте
-        list_out.append(file[:file.index('.')] + '_' + str(dict_count[file]) + file[file.index('.'):])
+        point_index = file.index('.')
+        list_out.append(file[:point_index] + '_' + str(dict_count[file]) + file[point_index:])
 
 print(*list_out, sep='\n')
 

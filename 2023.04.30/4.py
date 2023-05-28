@@ -5,8 +5,9 @@ while True:
         break
     # ИСПОЛЬЗОВАТЬ: если мы уверены в том, что split() вернёт список из ровно двух объектов (а в учебной задаче мы уверены), то можно сходу распаковать:
     # key, value = inp.split()
-    list_inp = inp.split()
-    case[list_inp[0]] = list_inp[1]
+   
+    key, value = inp.split()
+    case[key] =  value
 
 inp_value = input('Введите значение: ')
 for k, v in case.items():
@@ -14,7 +15,8 @@ for k, v in case.items():
         print(k)
         break
 else:
-    print('! value error !')    
+    print('! value error !')   
+    
 
 
 # 1004 ER_CANT_CREATE_FILE

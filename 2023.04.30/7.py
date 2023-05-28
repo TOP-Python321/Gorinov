@@ -35,17 +35,15 @@ list_out = {}
 
 for city in list_of_dicts:
     for name, v in city.items():
-        # ИСПРАВИТЬ: используйте словарные методы вместо явной проверки наличия ключа в словаре
-        if name in list_out:
-            list_out[name] = list_out[name] | {v}
-        else:
-            list_out[name] = {v}
-
-print(*{
+        # ИСПРАВИТЬ: используйте словарные методы вместо явной проверки наличия ключа в словаре        
+        list_out[name] = list_out.setdefault(name, {v}) | {v}
+             
+print()
+print(*(
     # ИСПОЛЬЗОВАТЬ: есть синтаксис f-строк для машиночитаемого строкового представления:
     f'{k!r}: {v}'
     for k, v in list_out.items()
-}, sep=',\n')
+), sep=',\n')
 
 # ИСПОЛЬЗОВАТЬ: альтернативный "однострочник" — не стоит писать такой код в реальной жизни, но для тренировки очень даже хорошо =)
 # from itertools import chain
