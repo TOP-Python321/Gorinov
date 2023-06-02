@@ -5,25 +5,22 @@ def to_ten(num: str, int_1: int) -> int:
     dict_num = dict(zip(
         # ИСПРАВИТЬ здесь и далее: range(0, 10) == range(10)
         # ИСПРАВИТЬ здесь и далее: chr() возвращает объект str — преобразование избыточно
-        [str(n) for n in range(0, 10)] + [str(chr(c)) for c in range(97, 123)],
+        [str(n) for n in range(10)] + [chr(c) for c in range(97, 123)],
         # ИСПРАВИТЬ здесь и далее: функция zip() принимает любые итерируемые объекты, поэтому достаточно range(36)
-        [i for i in range(0, 36)]
+        [i for i in range(36)]
     ))
     num_10 = 0
     n = len(num) - 1
     for i in num:
         # ИСПОЛЬЗОВАТЬ везде: круглые скобки вокруг выражений нужны либо для многострочной записи, либо для изменения приоритетов операторов — в остальных случаях не нужны
-        num_10 += (dict_num[i]) * (int_1**n)
+        num_10 += dict_num[i] * int_1**n
         n -= 1
     return num_10
 
 
 def to_base(num: int, int_1: int) -> str:
-    """Возвращает переданное число из десятичной системы счисления в любую другую систему счисления."""
-    dict_num = dict(zip(
-        [str(n) for n in range(0, 10)] + [str(chr(c)) for c in range(97, 123)],
-        [i for i in range(0, 36)]
-    ))
+    """Возвращает переданное число из десятичной системы счисления в любую другую систему счисления."""   
+    list_num = [str(n) for n in range(10)] + [chr(c) for c in range(97, 123)]
     num_out = []
 
     while True:
@@ -33,16 +30,10 @@ def to_base(num: int, int_1: int) -> str:
         if num < int_1:
             num_out.append(num)
             break
-    num_out.reverse()
-
-    str_out = []
-    # ИСПРАВИТЬ: вместо этих лишних циклов словарь выше стоило создать наоборот (впрочем, на самом деле хватило бы и списка)
-    for rem in num_out:
-        for k, v in dict_num.items():
-            if rem == v:
-                str_out.append(k)
-                break
-    return ''.join(str_out)
+    num_out.reverse()    
+    
+    # ИСПРАВИТЬ: вместо этих лишних циклов словарь выше стоило создать наоборот (впрочем, на самом деле хватило бы и списка)        
+    return ''.join([list_num[c] for c in num_out])       
 
 
 def int_base(num: str, arg1: int, arg2: int) -> str | None:

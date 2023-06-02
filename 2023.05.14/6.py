@@ -6,13 +6,13 @@ def orth_triangle(*,
 
     if not cathetus1 and cathetus2 and cathetus2 < hypotenuse:
         # ИСПРАВИТЬ здесь и далее: преобразование во float избыточно, потому что 1/2 возвращает объект float, а если хотя бы один из операндов математических операторов (включая **) является объектом float, то и результат будет объектом float
-        return float((hypotenuse**2 - cathetus2**2) ** (1/2))
+        return (hypotenuse**2 - cathetus2**2) ** (1/2)
 
     elif not cathetus2 and cathetus1 and cathetus1 < hypotenuse:
-        return float((hypotenuse**2 - cathetus1**2) ** (1/2))
+        return (hypotenuse**2 - cathetus1**2) ** (1/2)
 
     elif not hypotenuse and cathetus1 and cathetus2:
-        return float((cathetus1**2 + cathetus2**2) ** (1/2))
+        return (cathetus1**2 + cathetus2**2) ** (1/2)
 
 
 # >>> orth_triangle(cathetus1=6, cathetus2=8)
