@@ -34,11 +34,12 @@ def central_tendency(num_1: float, num_2: float, /, *numbers: float) -> dict[str
     count = 0
     multi = 1
     sum_divisor = 0
-    for i in numbers:
-        sum_num += i        
+    
+    for num in numbers:
+        sum_num += num        
         count += 1        
-        multi *= i        
-        sum_divisor += 1 / i
+        multi *= num        
+        sum_divisor += 1 / num
         
     dict_out |= {'arithmetic':sum_num / count}
     dict_out |= {'geometric':multi ** (1 / count)}
