@@ -1,0 +1,5 @@
+2023.06.07 22:09:25 - calculation(2, 2, 2) -> 2.0
+2023.06.07 22:11:37 - calculation(2, 2, 2, digits=0) -> ZeroDivisionError: division by zero
+2023.06.07 22:15:36 - calculation(2, 2, 2) -> 2.0
+2023.06.07 22:19:37 - calculation(2, 2, digits=2) -> 2.0
+2023.06.07 22:19:48 - calculation(2, 2, digits=0) -> ZeroDivisionError: division by zero
