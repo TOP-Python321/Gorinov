@@ -98,9 +98,8 @@ class Polygon(list):
         
     @property 
     def perimeter(self) -> float:
-        if self._is_closed():
-            print(reduce(lambda x,y: y+x, [elem.length for elem in self]))
-            # return sum(elem.length for elem in self)
+        if self._is_closed():            
+            return sum(elem.length for elem in self)
         else:
             raise ValueError("line items doesn't form a closed polygon")
          
