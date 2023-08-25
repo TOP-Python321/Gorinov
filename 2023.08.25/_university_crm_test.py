@@ -2,7 +2,6 @@ from datetime import date
 from decimal import Decimal as dec
 from json import loads
 from pathlib import Path
-from pprint import pprint
 from random import randrange as rr, choice, sample
 from re import compile
 from sys import path
@@ -76,7 +75,8 @@ def test_teachers():
         except AssertionError:
             print(f'\n{i=}, {teacher}\n'
                   f'\t{work_age} лет работы, {teacher.exp} лет стажа')
-              
+
+
 # создание персонала
 personnel = teachers + administrators
 personnel_university = sample(personnel, len(personnel) // 2)
@@ -88,28 +88,33 @@ personnel_laboratory = list(set(personnel_institute) - set(personnel_department)
 list_group = [test_gp.produce_group(teachers, students) for _ in range(rr(4, 10))]
 
 # генерирование объектов Laboratory
-def gen_lab():    
+def gen_lab() -> model.Laboratory:
+    """Генерирует и возвращает объект model.Laboratory"""
     lab_equipment = [test_gp.title() for _ in range(rr(5, 15))]
-    lab_schedule = [{test_gp.gen_dt() : test_gp.t_delta()} for _ in range(rr(2, 20))]
+    lab_schedule = [{test_gp.gen_dt(): test_gp.t_delta()} for _ in range(rr(2, 20))]
     return model.Laboratory(test_gp.title(), choice(administrators), test_gp.gen_con(), lab_equipment, lab_schedule, *personnel_laboratory) 
 
 # генерирование объектов Department
-def gen_dep():
+def gen_dep() -> model.Departament:
+    """Генерирует и возвращает объект model.Departament"""
     return model.Departament(test_gp.title(), choice(administrators), test_gp.gen_con(), list_group, *personnel_department)
 
 # генерирование объектов Institute
-def gen_ins():
+def gen_ins() -> model.Institute:
+    """Генерирует и возвращает объект model.Institute"""
     inst_departments = [gen_dep() for _ in range(rr(3, 10))]
     inst_labs = [gen_lab() for _ in range(rr(3, 10))]
     return model.Institute(test_gp.title(), choice(administrators), test_gp.gen_con(), inst_departments, inst_labs, *personnel_institute)
 
 # генерирование объектов Univesity
-def gen_uni():
+def gen_uni() -> model.University:
+    """Генерирует и возвращает объект model.University"""
     list_institute = [gen_ins() for _ in range(rr(3, 10))]
     return model.University(test_gp.title(), choice(administrators), test_gp.gen_con(), list_institute, *personnel_university)
     
 # тестирование Group
 def test_groups():
+    """Функция для тестирования класса Group"""
     for group in list_group:
         print(f'Руководитель группы = {str(group.curator)}\n'
               f'Староста группы = {str(group.head)}')
@@ -129,9 +134,11 @@ def test_groups():
     print(f'{test_group.semester = }')
     print(f'{str(test_group.curator) = }')
 
+
 # тестирование Department
 def test_deps():
-    test_dep =  gen_dep()
+    """Функция для тестирования класса Department"""
+    test_dep = gen_dep()
 
     print(f'\nИмя организации: {test_dep.title}\n'
           f'Руководитель: {test_dep.head}\n'
@@ -139,9 +146,11 @@ def test_deps():
           f'Количество групп = {len(test_dep.groups)}\n'
           f'Сотрудники:')
     print(*(f'\t{str(elem)}' for elem in test_dep), sep='\n')
-        
+
+
 # Тестирование Laboratory
 def test_labs():
+    """Функция для тестирования класса Laboratory"""
     test_lab = gen_lab()
 
     print(f'\nИмя организации: {test_lab.title}\n'
@@ -152,8 +161,11 @@ def test_labs():
           f'Сотрудники:')
     print(*(f'\t{str(elem)}' for elem in test_lab), sep='\n')
 
+
 # Тестирование Institute
 def test_insts():
+    """Функция для тестирования класса Institute"""
+
     test_inst = gen_ins()
 
     print(f'\nИмя организации: {test_inst.title}\n'
@@ -164,8 +176,10 @@ def test_insts():
           f'Сотрудники:')
     print(*(f'\t{str(elem)}' for elem in test_inst), sep='\n')
 
-# # Тестирование Univesity
+
+# Тестирование Univesity
 def test_unis():
+    """Функция для тестирования класса Univesity"""
     test_uni = gen_uni()
 
     print(f'\nИмя организации: {test_uni.title}\n'
@@ -175,8 +189,9 @@ def test_unis():
           f'Сотрудники:')
     print(*(f'\t{str(elem)}' for elem in test_uni), sep='\n')
 
+
 while True:
-    # list_test = [test_teachers(), test_groups(), test_deps(), test_labs(), test_insts(), test_unis()]
+    list_test = [test_teachers, test_groups, test_deps, test_labs, test_insts, test_unis]
     inp = input(
          f'\nВыберите группу для тестирования'
          f'\n\t1 - вывод списка учителей'
@@ -190,16 +205,6 @@ while True:
          
     if inp.upper() == "Q":
         break
-    elif inp == '1':
-        test_teachers()
-    elif inp == '2':
-        test_groups()
-    elif inp == '3':
-        test_deps()
-    elif inp == '4':
-        test_labs()
-    elif inp == '5':
-        test_insts()
-    elif inp == '6':
-        test_unis()
-        
+    if '0' < inp < '7':
+        list_test[int(inp) - 1]()
+
