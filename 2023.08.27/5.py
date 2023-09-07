@@ -45,7 +45,7 @@ class Command(ABC):
 
 @dataclass
 class TestCaseCommand(Command):
-    """Одна команда."""
+    """Представляет методы для выполнения или отмены операции."""
     def __init__(self, account: TestCase, action: Operation):
         self.account = account
         self.action = action
@@ -74,23 +74,68 @@ class TestCaseCommand(Command):
 
 class CompositeTestCaseCommand(Command, list):
     """Список команд."""
-    def __init__(self, *commands: Command):
-        super().__init__()
-        self.append(*commands)
+    def __init__(self):
+        super().__init__()        
+        self.undo_operation = []
 
-    def execute(self):
-        for command in self:
+    def execute(self, *commands):
+        for command in commands:
             command.execute()
+            self.append(command)
+        return self
 
-    def undo(self):
-        for command in self:
-            command.undo()
+    def undo(self):        
+        self[-1].undo()
+        self.undo_operation.append(self.pop())
+        
+    def re_undo(self) -> None:
+        if su_o := self.undo_operation:
+            self.execute(su_o[-1])
+            su_o.remove(su_o[-1])
+        
 
 
 t1 = TestCase()
-print(t1.messages)
-ctcc = CompositeTestCaseCommand(TestCaseCommand(t1, Operation.PRINT_MSG))
-ctcc.execute()
-print(t1.messages)
+t2 = TestCase()
+t3 = TestCaseCommand(TestCase(), Operation.PRINT_MSG)
+ctcc = CompositeTestCaseCommand().execute(TestCaseCommand(t1, Operation.PRINT_MSG))
+ctcc.execute(TestCaseCommand(t2, Operation.PRINT_NUMS), t3)
+print(f'{ctcc = }')
+print(f'{len(t1.messages) = }')
+print(f'{len(t2.messages) = }')
+print(f'{len(t3.account.messages) = }')
+
+print(f'\nОтмена последней операции.')
 ctcc.undo()
-print(t1.messages)
+print(f'{ctcc = }')
+print(f'{len(t1.messages) = }')
+print(f'{len(t2.messages) = }')
+print(f'{len(t3.account.messages) = }')
+print(f'\nПовторное выполнение последней отмененной операции.')
+ctcc.re_undo()
+print(f'{ctcc = }')
+print(f'{len(t1.messages) = }')
+print(f'{len(t2.messages) = }')
+print(f'{len(t3.account.messages) = }')
+
+# guj
+# 70 80 67 45
+# xeumda
+# ctcc = [TestCaseCommand(), TestCaseCommand(), TestCaseCommand()]
+# len(t1.messages) = 999
+# len(t2.messages) = 1000
+# len(t3.account.messages) = 999
+
+# Отмена последней операции.
+# ctcc = [TestCaseCommand(), TestCaseCommand()]
+# len(t1.messages) = 999
+# len(t2.messages) = 1000
+# len(t3.account.messages) = 1000
+
+# Повторное выполнение последней отмененной операции.
+# xeumda
+# ctcc = [TestCaseCommand(), TestCaseCommand(), TestCaseCommand()]
+# len(t1.messages) = 999
+# len(t2.messages) = 1000
+# len(t3.account.messages) = 999
+# >>>
