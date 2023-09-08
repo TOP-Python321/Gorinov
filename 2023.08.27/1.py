@@ -33,7 +33,8 @@ class ClassBuilder:
         self.inst_attr |= {inst_attr: values}
         return self
         
-    def __str__(self): 
+    def __str__(self):
+        """Генерирует и возвращает строку."""
         str_cls_field = ''.join(f'\t{k} = {v!r}\n' for k, v in self.cls_field.items())
         str_inst_attr = '\n'.join(f'\t\tself.{k} = {v!r}' for k, v in self.inst_attr.items())
         str_res = (f'{self.name}\n' +

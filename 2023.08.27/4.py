@@ -40,6 +40,7 @@ class Folder(list):
         return self
 
     def ls(self) -> str:
+        # !Доработать с рекурсией!
         """Возвращает путь расположения экземпляра в файловой системе в виде строки."""
         return self.dir_path + PATH_SEP + self.name
 

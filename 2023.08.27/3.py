@@ -196,3 +196,69 @@ cv1 = CVProfiler('Иванов Иван Иванович', 26, 'художник
 print(cv1)
 
 (Path(path[0]) / '3.html').write_text(str(cv1), encoding='utf-8')
+
+# <html>
+#   <head>
+#     <title>Иванов Иван Иванович: портфолио</title>
+#     <body style = padding-left:50px>
+#       <div>
+#         <h2>Обо мне</h2>
+#         <p>Иванов Иван Иванович</p>
+#         <p>возраст : 26лет</p>
+#         <p>сфера деятельности: художник-фрилансер</p>
+#       </div>
+#       <div>
+#         <h2>Образование</h2>
+#         <p>учебное заведение:</p>
+#         <ul>
+#           <li>Архитектурная Академия1
+#             <ul>
+#               <li>специальность: Компьютерный дизайн</li>
+#               <li>год окончания: 2018</li>
+#             </ul>
+#           </li>
+#           <li>Архитектурная Академия2
+#             <ul>
+#               <li>специальность: Компьютерный дизайн</li>
+#               <li>год окончания: 2019</li>
+#             </ul>
+#           </li>
+#           <li>Архитектурная Академия3
+#             <ul>
+#               <li>специальность: Компьютерный дизайн</li>
+#               <li>год окончания: 2020</li>
+#             </ul>
+#           </li>
+#         </ul>
+#       </div>
+#       <div>
+#         <h2>Мои проекты</h2>
+#         <ul>
+#           <li>
+#             <div>
+#               <p>UI разработка для интернет-магазина Hend Med</p>
+#             </div>
+#           </li>
+#           <img src = https://cs1.livemaster.ru/storage/94/f2/98bb7b10de07da19d61e17c0451d--ukrasheniya-muzhskoj-kozhanyj-braslet-volk.jpg width = 400 height = 300 style = padding:10px></img>
+#           <li>
+#             <div>
+#               <p>Разработка логотипа для компании по производству снеков</p>
+#             </div>
+#           </li>
+#           <img src = https://re-sign.ru/storage/app/uploads/public/fd6/ef4/5e5/thumb__785_523_0_0_exact.jpg width = 400 height = 300 style = padding:10px></img>
+#           <img src = https://cs1.livemaster.ru/storage/94/f2/98bb7b10de07da19d61e17c0451d--ukrasheniya-muzhskoj-kozhanyj-braslet-volk.jpg width = 400 height = 300 style = padding:10px></img>
+#         </ul>
+#       </div>
+#       <div>
+#         <div>
+#           <h2>Мои контакты</h2>
+#           <ul>
+#             <li>devianart: ivovuvan_in_art</li>
+#             <li>telegram: @ivovuvan</li>
+#             <li>email: ivovuvan_in_art@mail.com</li>
+#           </ul>
+#         </div>
+#       </div>
+#     </body>
+#   </head>
+# </html>

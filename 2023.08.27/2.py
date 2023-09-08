@@ -77,10 +77,9 @@ class HTMLBuilder:
             return self.__parent.build()
 
 
-# root = HTMLBuilder('div')
 div = HTMLTag.create('div')\
-             .sibling('p', 'Menu', align = 'right', style = "color:#00FF00")\
-             .nested('ul', style = "color:#0000FF")\
+             .sibling('p', 'Menu', align='right', style="color:#00FF00")\
+             .nested('ul', style="color:#0000FF")\
              .sibling('li', 'File')\
              .sibling('li', 'Edit')\
              .sibling('li', 'View')\

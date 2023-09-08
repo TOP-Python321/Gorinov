@@ -3,6 +3,7 @@ from string import ascii_lowercase as letters
 from abc import ABC, abstractmethod
 from enum import Enum
 from dataclasses import dataclass
+from typing import Self
 
 
 class Operation(Enum):
@@ -43,15 +44,22 @@ class Command(ABC):
     def undo(self):
         pass
 
+
 @dataclass
 class TestCaseCommand(Command):
     """Представляет методы для выполнения или отмены операции."""
     def __init__(self, account: TestCase, action: Operation):
-        self.account = account
-        self.action = action
-        self.success: bool = False
+        if (isinstance(account, TestCase) and
+            isinstance(action, Operation)
+        ):
+            self.account = account
+            self.action = action
+            self.success: bool = False
+        else:
+            raise TypeError('В качестве атрибутов передаются экземпляры класса TestCase и Operation')
 
     def execute(self):
+        """Выполняет операцию"""
         if self.action is Operation.PRINT_MSG:
             self.values = self.account.messages[-1]
             self.account.print_msg()
@@ -62,6 +70,7 @@ class TestCaseCommand(Command):
             self.success = True
 
     def undo(self):
+        """Отменяет операцию"""
         if self.success:
             if self.action is Operation.PRINT_MSG:
                 self.account.messages.append(self.values)
@@ -73,26 +82,40 @@ class TestCaseCommand(Command):
 
 
 class CompositeTestCaseCommand(Command, list):
-    """Список команд."""
+    """Представляет методы для выполнения переданных команд, является контейнером успешных и отмененных операций."""
     def __init__(self):
         super().__init__()        
         self.undo_operation = []
 
-    def execute(self, *commands):
+    def execute(self, *commands: TestCaseCommand) -> Self:
+        """Выполняет операцию."""
         for command in commands:
-            command.execute()
-            self.append(command)
+            if isinstance(command, TestCaseCommand):
+                command.execute()
+                self.append(command)
+            else:
+                raise TypeError('Принимаются экземпля ры класса TestCaseCommand')
         return self
 
-    def undo(self):        
-        self[-1].undo()
-        self.undo_operation.append(self.pop())
+    def undo(self) -> None:
+        """Выполняет отмену операции."""
+        try:
+            self[-1].undo()
+        except IndexError:
+            print('Список операций пуст.')
+        else:
+            self.undo_operation.append(self.pop())
         
     def re_undo(self) -> None:
-        if su_o := self.undo_operation:
+        """Выполняет повторное исполнение отмененной операции."""
+        try:
+            su_o = self.undo_operation
             self.execute(su_o[-1])
+        except IndexError:
+            print('Список отмененных операций пуст.')
+        else:
             su_o.remove(su_o[-1])
-        
+
 
 
 t1 = TestCase()
