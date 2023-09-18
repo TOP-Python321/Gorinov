@@ -1,10 +1,10 @@
 from typing import Optional
-
 from dataclasses import dataclass
 from enum import Enum
 from string import ascii_lowercase as a_lc
 
 import re
+
 
 
 class SquareColor(int, Enum):
@@ -19,12 +19,12 @@ class PieceColor(Enum):
 
 class PieceKind(Enum):
     """Вид фигуры."""
-    KING = 0
-    QUEEN = 1
-    ROOK = 2
-    BISHOP = 3
-    KNIGHT = 4
-    PAWN = 5
+    KING = 'K'
+    QUEEN = 'Q'
+    ROOK = 'R'
+    BISHOP = 'B'
+    KNIGHT = 'N'
+    PAWN = 'e'
 
 
 @dataclass
@@ -47,7 +47,7 @@ class Piece:
         return f'{self.color.name.title()} {self.kind.name.title()}'
     
     def __str__(self):
-        return self.color.name[0] + self.kind.name[0]
+        return StrStrategy.check(self.color, self.kind)
     
     def move(self, end_square: 'Square') -> None:
         """Осуществляет проверку, ход фигуры и взятие фигуры противника."""
@@ -138,3 +138,47 @@ class Chessboard(dict):
             return self.__rank(int(key))
         else:
             raise KeyError
+
+
+class PieceKindSymbol(Enum):
+    """Вид фигуры в виде символа."""
+    WK = '♔'
+    WQ = '♕'
+    WR = '♖'
+    WB = '♗'
+    WN = '♘'
+    We = '♙'
+    BK = '♚'
+    BQ = '♛'
+    BR = '♜'
+    BB = '♝'
+    BN = '♞'
+    Be = '♟'
+
+
+# Для исключения параллельного импорта стратегия строкового представления фигур реализована в этом модуле.
+class StrStrategy:
+    """Представляет класс для выбора стратегии строкового представления фигур."""
+    flag = True
+
+    @classmethod
+    def check(cls, color, name):
+        if cls.flag:
+            return PieceStrLetter.check(color, name)
+        else:
+            return PieceStrSymbol.check(color, name)
+
+
+class PieceStrLetter:
+    """Представляет стратегию строкового представления фигур с помощью буквенных международных обозначений."""
+    @staticmethod
+    def check(color, name):
+        return color.name[0] + name.value
+
+
+class PieceStrSymbol:
+    """Представляет стратегию строкового представления фигур с помощью символов шахматных фигур из UTF-8."""
+    @staticmethod
+    def check(color, name):
+        key = PieceStrLetter.check(color, name)
+        return PieceKindSymbol[key].value

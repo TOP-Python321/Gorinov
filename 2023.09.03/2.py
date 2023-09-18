@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from copy import deepcopy
-from typing import Self
+from dataclasses import dataclass
+from typing import Optional
 
 import chess
 
@@ -24,7 +24,7 @@ class Game(list):
         super().__init__()
         self.keep = chess.Chessboard()
 
-    def move(self, start_square: str, end_square: str) -> Self:
+    def move(self, start_square: str, end_square: str) -> None:
         """Осуществляет переход фигуры с одного поля на другое."""
         # <<<Доработать исключения>>>
         try:
@@ -43,13 +43,11 @@ class Game(list):
         except AttributeError:
             print('Поле пустое.')
 
-
-
     def ext_history(self) -> None:
         """Выводит в std_out пронумерованные ходы."""
         print('\n'.join(
             f'{i + 1}: '
-            f'{elem[0].piece!r}: '
+            f'{elem[0].piece}: '
             f'({elem[0].start_square} -> '
             f'{elem[0].end_square})'
             for i, elem in enumerate(self))
@@ -64,6 +62,15 @@ class Game(list):
         # не удаляет ход из списка сохранений
         self.keep = self[index_store - 1][1]
         return self
+
+    @staticmethod
+    def str_strategy(inp: Optional[str] = None) -> None:
+        """Переключает строковое отображение представления фигур. По умолчанию с помощью буквенных международных
+    обозначений. При передаче любой строки, переключает на символы шахматных фигур из UTF-8"""
+        if not inp:
+            chess.StrStrategy.flag = True
+        else:
+            chess.StrStrategy.flag = False
 
 
 class PieceMove:
@@ -107,13 +114,14 @@ class Rook(Piece):
 class King(Piece):
     """Представляет стратегию хода Короля."""
     @staticmethod
-    def check_square(start: str, end: str) -> bool| None:
+    def check_square(start: str, end: str) -> bool | None:
         char_11 = ord(start[0])
         char_12 = int(start[1])
         char_21 = ord(end[0])
         char_22 = int(end[1])
         if char_11 - 1 <= char_21 <= char_11 + 1 and char_12 - 1 <= char_22 <= char_12 + 1:
             return bool(True)
+
 
 class Bishop(Piece):
     """Представляет стратегию хода Слона."""
@@ -176,7 +184,9 @@ class Pawn(Piece):
         ):
             res = True
         return bool(res)
-        
+
+
+
         
 # >>> test = Game()
 # >>> test.move('a7', 'a5')
@@ -211,3 +221,30 @@ class Pawn(Piece):
 # >>> test.keep
 # {'a': {1: <a1: None>, 2: <a2: White Pawn>, 3: <a3: None>, 4: <a4: None>, 5: <a5: Black Pawn>, 6: <a6: None>, 7: <a7: None>, 8: <a8: Black Rook>}, 'b': {1: <b1: None>, 2: <b2: White Pawn>, 3: <b3: None>, 4: <b4: None>, 5: <b5: White Knight>, 6: <b6: None>, 7: <b7: None>, 8: <b8: Black Knight>}, 'c': {1: <c1: White Bishop>, 2: <c2: White Pawn>, 3: <c3: None>, 4: <c4: None>, 5: <c5: None>, 6: <c6: None>, 7: <c7: Black Pawn>, 8: <c8: None>}, 'd': {1: <d1: White Queen>, 2: <d2: White Pawn>, 3: <d3: None>, 4: <d4: None>, 5: <d5: None>, 6: <d6: None>, 7: <d7: Black Pawn>, 8: <d8: None>}, 'e': {1: <e1: White King>, 2: <e2: White Pawn>, 3: <e3: None>, 4: <e4: None>, 5: <e5: None>, 6: <e6: None>, 7: <e7: Black Pawn>, 8: <e8: Black King>}, 'f': {1: <f1: White Bishop>, 2: <f2: White Pawn>, 3: <f3: None>, 4: <f4: None>, 5: <f5: Black Bishop>, 6: <f6: None>, 7: <f7: Black Pawn>, 8: <f8: Black Bishop>}, 'g': {1: <g1: White Knight>, 2: <g2: White Pawn>, 3: <g3: None>, 4: <g4: None>, 5: <g5: Black Queen>, 6: <g6: None>, 7: <g7: Black Pawn>, 8: <g8: Black Knight>}, 'h': {1: <h1: White Rook>, 2: <h2: White Pawn>, 3: <h3: None>, 4: <h4: None>, 5: <h5: None>, 6: <h6: None>, 7: <h7: Black Pawn>, 8: <h8: Black Rook>}}
 # >>>
+
+# !!!!!!!!!!!!!!!!!!!!Второй тест
+# >>> test = Game()
+# >>> test.move('a1', 'a5')
+# >>> test.move('b7', 'b6')
+# >>> test.move('b6', 'a5')
+# >>> test.move('b1', 'c3')
+# >>> test.move('c8', 'f5')
+# >>> test.move('c3', 'b5')
+#
+# >>> test.ext_history()
+# 1: WR: (a1 -> a5)
+# 2: Be: (b7 -> b6)
+# 3: Be: (b6 -> a5)
+# 4: WN: (b1 -> c3)
+# 5: BB: (c8 -> f5)
+# 6: WN: (c3 -> b5)
+#
+# >>> test.str_strategy('1')
+#
+# >>> test.ext_history()
+# 1: ♖: (a1 -> a5)
+# 2: ♟: (b7 -> b6)
+# 3: ♟: (b6 -> a5)
+# 4: ♘: (b1 -> c3)
+# 5: ♝: (c8 -> f5)
+# 6: ♘: (c3 -> b5)
