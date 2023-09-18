@@ -53,7 +53,7 @@ class Piece:
         """Осуществляет проверку, ход фигуры и взятие фигуры противника."""
         if end_square.piece is not None:
             if end_square.piece.color is self.color:
-                raise Exception
+                raise ValueError('Поле занято своей фигурой.')
             else:
                 del end_square.piece
         self.square.piece = None
