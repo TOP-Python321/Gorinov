@@ -64,10 +64,10 @@ class Game(list):
         return self
 
     @staticmethod
-    def str_strategy(inp: Optional[str] = None) -> None:
+    def str_strategy(flag: bool = False) -> None:
         """Переключает строковое отображение представления фигур. По умолчанию с помощью буквенных международных
     обозначений. При передаче любой строки, переключает на символы шахматных фигур из UTF-8"""
-        if not inp:
+        if not flag:
             chess.StrStrategy.flag = True
         else:
             chess.StrStrategy.flag = False
@@ -162,6 +162,7 @@ class Knight(Piece):
 
 class Pawn(Piece):
     """Представляет стратегию хода Пешки."""
+    # <<<работа стратегии с цветом клетки(проверить)>>>
     @staticmethod
     def check_square(chess_board: chess.Chessboard, start: str, end: str) -> bool:
         char_11 = ord(start[0])
@@ -239,7 +240,7 @@ class Pawn(Piece):
 # 5: BB: (c8 -> f5)
 # 6: WN: (c3 -> b5)
 #
-# >>> test.str_strategy('1')
+# >>> test.str_strategy(True)
 #
 # >>> test.ext_history()
 # 1: ♖: (a1 -> a5)
