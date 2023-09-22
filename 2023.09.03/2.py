@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from copy import deepcopy
 from dataclasses import dataclass
-from typing import Optional
+from typing import Self
 
 import chess
 
@@ -53,7 +53,7 @@ class Game(list):
             for i, elem in enumerate(self))
         )
 
-    def remove(self, index_store: int):
+    def remove(self, index_store: int) -> Self:
         """
         Возвращает состояние игрового поля до сделанного хода, который получаем из функции ext_history()        
 
@@ -164,26 +164,37 @@ class Pawn(Piece):
     """Представляет стратегию хода Пешки."""
     # <<<работа стратегии с цветом клетки(проверить)>>>
     @staticmethod
-    def check_square(chess_board: chess.Chessboard, start: str, end: str) -> bool:
+    def check_square(chess_board: chess.Chessboard, start: str, end: str) -> bool | None:
         char_11 = ord(start[0])
         char_12 = int(start[1])
         char_21 = ord(end[0])
         char_22 = int(end[1])
         res = False
 
-        if (chess_board[end].piece is None and
-            (((char_12 == 2 or char_12 == 7) and
-            1 <= abs(char_12 - char_22) <= 2) or
-            abs(char_12 - char_22) == 1) and
-            char_11 == char_21
-        ):
-            res = True
+        # # if (chess_board[end].piece is None and
+        # #     (((char_12 == 2 or char_12 == 7) and
+        # #     1 <= abs(char_12 - char_22) <= 2) or
+        # #     abs(char_12 - char_22) == 1) and
+        # #     char_11 == char_21
+        # ):
+        if chess_board[end].piece is None and char_11 == char_21:
+            if ((char_12 == 2 or char_12 == 7) and
+                1 <= abs(char_12 - char_22) <= 2
+            ):
+                res = True
+
+        # elif (chess_board[end].piece is not None and
+        #       chess_board[end].piece.color != chess_board[start].piece.color and
+        #       abs(char_11 - char_21) == 1 and
+        #       abs(char_12 - char_22) == 1
+        # ):
         elif (chess_board[end].piece is not None and
-              chess_board[end].piece.color != chess_board[start].piece.color and
-              abs(char_11 - char_21) == 1 and
-              abs(char_12 - char_22) == 1
+              chess_board[end].piece.color != chess_board[start].piece.color
         ):
-            res = True
+            if (abs(char_11 - char_21) == 1 and
+              abs(char_12 - char_22) == 1
+            ):
+                res = True
         return bool(res)
 
 
