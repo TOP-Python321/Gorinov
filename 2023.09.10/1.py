@@ -1,7 +1,10 @@
+"""Тока входа MVC приложения"""
+
 from controller import Application as Ap
 
 
 def main():
+    """Запучкает контроллер приложения."""
     Ap.accept_email()
 
 
