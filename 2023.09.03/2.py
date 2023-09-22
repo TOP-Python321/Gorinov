@@ -192,7 +192,7 @@ class Pawn(Piece):
               chess_board[end].piece.color != chess_board[start].piece.color
         ):
             if (abs(char_11 - char_21) == 1 and
-              abs(char_12 - char_22) == 1
+                abs(char_12 - char_22) == 1
             ):
                 res = True
         return bool(res)
