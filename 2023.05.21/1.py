@@ -18,19 +18,22 @@ nominals = {
 
 
 def pick_resistors(num: int) -> dict[str, tuple] | None:
-    """Принимает целое число от 100 до 999 и находит ближайшее число или числа в значениях словаря nominals. Возвращает словарь, в котором значениями являются
-        найденные числа. Если значение не найдено возвращает None"""
+    """Принимает целое число от 100 до 999 и находит ближайшее число или числа в значениях словаря nominals. Возвращает словарь, в котором значениями являются найденные числа. Если значение не найдено возвращает None"""
     if num in range(100, 1000):
-        pick_dict = {} 
+        pick_dict = {}
         for k, v in nominals.items():
-            min_difference = min(tuple(map(lambda x: abs(x - num), v)))   
-            resistor_value =tuple(filter(lambda x: x + min_difference == num or x - min_difference == num , v))     
-            pick_dict |= {k: resistor_value}         
+            min_difference = min(tuple(map(lambda x: abs(x - num), v)))
+            resistor_value = tuple(filter(lambda x: x + min_difference == num or x - min_difference == num, v))
+            pick_dict |= {k: resistor_value}
         return pick_dict
-        
+
+
 # >>> print(pick_resistors(1000))
 # None
 # >>> pick_resistors(100)
 # {'E6': (100,), 'E12': (100,), 'E24': (100,), 'E48': (100,), 'E96': (100,)}
 # >>> pick_resistors(950)
 # {'E6': (680,), 'E12': (820,), 'E24': (910,), 'E48': (953,), 'E96': (953,)}
+
+
+# ИТОГ: очень хорошо — 5/6

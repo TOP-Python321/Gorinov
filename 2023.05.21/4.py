@@ -1,10 +1,11 @@
 def repeat(function: 'callable') -> 'callable':
     """Возвращает декорируемую функцию 10 раз"""
-    def wrapper (*args, **kwargs) -> 'any':    
+    def wrapper(*args, **kwargs) -> 'any':
         for _ in range(10):
             function(*args, **kwargs)        
     return wrapper
-    
+
+
 # >> def multi(num1, num2):
 # ...     return print(num1 * num2)
 # ...
@@ -20,3 +21,6 @@ def repeat(function: 'callable') -> 'callable':
 # 12
 # 12
 # 12
+
+
+# ИТОГ: отлично — 3/3

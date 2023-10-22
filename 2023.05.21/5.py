@@ -1,7 +1,6 @@
 def logger(function: 'callable') -> 'callable':
     """Выводит в стандартный поток журнал вызовов декорируемой функции"""
     def wrapper(*args, **kwargs) -> 'any':
-        
         # кортеж позиционных аргументов по умолчанию
         def_poz_arg = function.__defaults__
         def_key_arg = function.__kwdefaults__
@@ -9,7 +8,8 @@ def logger(function: 'callable') -> 'callable':
         poz_arg = [str(arg) for arg in args]
         # получение ключевых параметров
         key_arg = {k:v for k, v in kwargs.items()}
-        
+
+        # ИСПРАВИТЬ: проверку на None проводим с помощью операторов is и is not
         if def_key_arg != None and not [key for key in def_key_arg.keys() if key in key_arg]:
             key_arg |= def_key_arg
         if def_poz_arg != None:
@@ -26,7 +26,8 @@ def logger(function: 'callable') -> 'callable':
             return result
             
     return wrapper
-    
+
+
 # >>> def calculation(num1, num2, digits = 2):
 # ...     return num1 * num2 / digits
 # ...
@@ -54,3 +55,10 @@ def logger(function: 'callable') -> 'callable':
 # >>> calculation(num1 = 2, num2 = 4, digits = 2)
 # calculation(num1=2, num2=4, digits=2) -> 4.0
 # 4.0
+
+# КОММЕНТАРИЙ: мало сценариев объявления и вызова декорируемой функции рассмотрено
+
+# СДЕЛАТЬ: изучите пример, запустите тестовые функции со своей реализацией декоратора, найдите ошибки
+
+
+# ИТОГ: хорошо, но можно лучше — 4/7
